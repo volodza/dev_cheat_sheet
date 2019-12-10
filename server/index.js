@@ -1,25 +1,34 @@
 const Express = require('express');
+const mongoose = require('mongoose');
 const Cors = require('cors');
 const BodyParser = require('body-parser');
-const db = require('./db')
 const app = Express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+const documents = require('./routes/documents')
 
 app.use(Cors());
 app.use(BodyParser.json());
 app.use(Express.static(__dirname + '/public/'))
-app.get(/.*/, (req,res)=> res.sendFile(__dirname + '/public/index.html'))
+// app.get(/.*/, (req,res)=> res.sendFile(__dirname + '/public/index.html'))
 
-db.connect((err)=>{
-  if (err) {
-    return console.log(err);
-    process.exit(1)
-  } else {
-    app.listen(port, (err) => {
-      if (err) {
-          return console.log('something bad happened', err)
+app.use(documents)
+
+async function run() {
+  try {
+    await mongoose.connect(
+      'mongodb+srv://abc123:Vkfltytwjou9df9@vueexpress-nq8xi.mongodb.net/test?retryWrites=true&w=majority',
+      {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true
       }
-      console.log(`server is listening on ${port}`)
+    )
+    app.listen(PORT, () => {
+      console.log('Server has been started...')
     })
+  } catch (e) {
+    console.log(e)
   }
-})
+}
+
+run();
