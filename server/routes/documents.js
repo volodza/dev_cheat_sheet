@@ -17,12 +17,13 @@ documents.get('/:id', async(req, res) => {
 
 //добавляем новый документ
 documents.post('/', async(req, res) => {
+  // console.log(req)
     const document = new Document({
-        title: req.query.title,
-        content: req.query.content
+        title: req.body.title,
+        content: req.body.content
     });
     await document.save();
-    res.redirect('/');
+    res.redirect('/documents');
 });
 
 //обновить конкретный документ по айди
