@@ -17,13 +17,13 @@ documents.get('/:id', async(req, res) => {
 
 //добавляем новый документ
 documents.post('/', async(req, res) => {
-  // console.log(req)
-    const document = new Document({
-        title: req.body.title,
-        content: req.body.content
-    });
-    await document.save();
-    res.redirect('/documents');
+  console.log(req.body)
+  const document = new Document({
+      title: req.body.title,
+      content: req.body.content
+  });
+  // await document.save();
+  res.redirect('/documents');
 });
 
 //обновить конкретный документ по айди
@@ -37,10 +37,10 @@ documents.post('/:id', async(req, res) => {
 
 //удаляем конкретный документ по айди
 documents.delete('/:id', async(req, res) => {
-    const document = await Document.findById(req.params.id)
-    todo.completed = !!req.body.completed
+    const document = await Document.remove({_id: req.params.id})
+    // todo.completed = !!req.body.completed
     await document.save()
-    res.redirect('/')
+    res.send(200)
 })
 
 

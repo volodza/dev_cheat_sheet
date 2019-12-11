@@ -6,6 +6,7 @@ const app = Express();
 const PORT = process.env.PORT || 3000;
 const documents = require('./routes/documents')
 
+app.use(Express.urlencoded({ extended: true }))
 app.use(Cors());
 app.use(BodyParser.json());
 app.use(Express.static(__dirname + '/public/'))
