@@ -11,7 +11,7 @@ app.use(BodyParser.json());
 app.use(Express.static(__dirname + '/public/'))
 // app.get(/.*/, (req,res)=> res.sendFile(__dirname + '/public/index.html'))
 
-app.use(documents)
+app.use('/documents',documents)
 
 async function run() {
   try {
