@@ -6,4 +6,4 @@ const schema = new Schema({
     date: Date
 })
 
-module.exports = model('Document', schema)
+module.exports = model('Obj', schema)
