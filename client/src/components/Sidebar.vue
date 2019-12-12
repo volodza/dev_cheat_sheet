@@ -33,32 +33,35 @@
 export default {
   data () {
     return {
-      selected:null,
-      isActive:null,
+      selected:null || localStorage.childTitle,
+      isActive:null || localStorage.linkTitle,
       links:[
         {
+          url: "/main/decision",
           title:'Решения',
           children:[
-            { title: "Сообщества", icon: "mdi-account-multiple", url: "/main/group" },
-            { title: "Пользователи", icon: "mdi-account", url: "/main/users" },
-            { title: "Родители", icon: "mdi-human-male-boy", url: "/main/parents" },
-            { title: "Дни рождения", icon: "mdi-gift-outline", url: "/main/birthdays" }
+            { title: "Сообщества",},
+            { title: "Пользователи",},
+            { title: "Родители",},
+            { title: "Дни рождения",}
           ]
         },
         {
+          url: "/main/objectList",
           title:'Встроенные объекты',
           children:[
-            { title: "Array", icon: "mdi-account-multiple", url: "/main/array" },
-            { title: "String", icon: "mdi-account", url: "/main/string" },
-            { title: "Object", icon: "mdi-human-male-boy", url: "/main/object"},
-            { title: "Number", icon: "mdi-gift-outline", url: "/main/number"},
-            { title: "Топ участники", icon: "mdi-new-box", url: "/main/topParticipant"},
-            { title: "Участники", icon: "mdi-new-box", url: "/main/participant"},
-            { title: "Недавно вступившие", icon: "mdi-new-box", url: "/recentlyjoin", iconColor: "red"},
-            { title: "Комментарии", icon: "mdi-human-male-boy", url: "/Comments" }
+            { title: "Array",type: 'Array'},
+            { title: "String", type: 'String'},
+            { title: "Object", type: 'Object'},
+            { title: "Number", type: 'Number'},
+            // { title: "Топ участники", icon: "mdi-new-box", url: "/main/topParticipant"},
+            // { title: "Участники", icon: "mdi-new-box", url: "/main/participant"},
+            // { title: "Недавно вступившие", icon: "mdi-new-box", url: "/recentlyjoin", iconColor: "red"},
+            // { title: "Комментарии", icon: "mdi-human-male-boy", url: "/Comments" }
           ]
         },
         {
+          url: "/main/function",
           title:'Функции',
           children:[
             { title: "Вступления", icon: "mdi-account-multiple", url: "" },
@@ -69,13 +72,25 @@ export default {
 
     }
   },
+  computed:{
+    type(){
+      return this.$store.getters.type
+    }
+  },
   methods:{
     selectChild(child){
-      this.$router.push(child.url)
+      this.$router.push(localStorage.linkUrl)
       this.selected=child.title
+      this.$store.commit('setType', child.type)
+      localStorage.type=child.type
+      localStorage.childTitle=child.title
     },
+  
     selectLink(link){
       this.isActive == link.title?this.isActive =null:this.isActive = link.title
+      localStorage.linkTitle=link.title
+      localStorage.linkUrl=link.url
+      
     }
   },
 

@@ -7,7 +7,6 @@
         <div class="layout">
           <p-input v-model="name" class="name" label="Название"></p-input>
           <p-input v-model="description" class="description" label="Описание"></p-input>
-         {{arr}}
         </div>
          <div class="add">
             <p-btn @click="addObject()" dark>Добавить</p-btn>
@@ -79,19 +78,31 @@ export default {
     return {
       name: '',
       description: '',
-      arr:[]
     }
   },
+
+  computed:{
+  type(){
+    return this.$store.getters.type || localStorage.type
+  }
+
+},
   methods: {
     addObject(){
       let result = {
-        name: this.name,
-        description: this.description,
+        title: this.name,
+        content: this.description,
+        type: this.type,
         date: new Date()
       };
-      this.$http.post("/objects/create", result).then(res => {
-      // this.$store.commit("setSuccess", res.body);
-      this.arr=res.body
+
+      this.$http.post("http://localhost:3000/documents/", result).then(() => {
+        // if(res!=200){
+          // this.$store.commit('setObject', res)
+        // }
+        // else{
+          window.location.href = '/main/objectList'
+        // }
       });
     },
     close() {

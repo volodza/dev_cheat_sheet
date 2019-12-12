@@ -1,13 +1,13 @@
-// import Vue from 'vue'
-// import Vuex from 'vuex'
-// import user from './modules/user'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import objects from './modules/objects'
 // import tasks from './modules/tasks'
 
-// Vue.use(Vuex)
+Vue.use(Vuex)
 
-// export default new Vuex.Store({
-//     modules: {
-//         user,
-//         tasks
-//     }
-// })
+export default new Vuex.Store({
+    modules: {
+        objects,
+        // tasks
+    }
+})
