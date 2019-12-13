@@ -6,11 +6,15 @@
         CHEAT SHEET
          <logo />
       </h1>
+
+      <span @click="activate" class="add_btn" >+</span>
+
+      <div v-if="isActive" class="docAdd"></div>
       
       <div 
         style="border-radius: 4px;border: 1px solid #3b8070;padding:10px;margin:10px" 
-        v-for="document in documents" 
-        :key="document" 
+        v-for="(document,i) in documents" 
+        :key="i" 
         class="doc"
       >
       <div style="display:flex;justify-content: space-between;">
@@ -50,10 +54,14 @@ export default {
   },
   data() {
     return {
-      documents:[]
+      documents:[],
+      isActive:false
     }
   },
   methods:{
+    activate(){
+      this.isActive = true;
+    },
     getDocuments(){
       fetch('http://localhost:3000/documents/').then(res => {
         res.json()
@@ -75,6 +83,35 @@ export default {
 </script>
 
 <style>
+.add_btn {
+  border: 2px solid #00c58e;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    /* display: block; */
+    margin: 0 auto;
+    color: #2f495e;
+    display: flex;
+    justify-content: center;
+    line-height: 1.1;
+    /* text-align: center; */
+    font-size: 50px;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.add_btn:hover{
+  color:white;
+  background-color:#00c58e;
+  /* border: 2px solid #2f495e; */
+}
+
+.docAdd{
+  height:100px;
+  border:1px solid black;
+  transition: all 3s;
+}
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
