@@ -12,7 +12,8 @@
         <div>{{ obj.content }}</div>
         <span @click="deleteObj(obj)">X</span>
       </li>
-
+      {{q}}
+<h1 v-if="q">huy</h1>
     </ul>
   </div>
 </template>
@@ -52,17 +53,21 @@ export default {
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      objects: '',
     }
   },
   computed: {
     type() {
       return this.$store.getters.type || localStorage.type
-    },
-    objects() {
-      return this.$store.getters.objects
     }
   },
+
+  // mounted(){
+  //   this.$on('addObj', (obj) => {
+  //        this.objects.push(obj)
+  // })
+  // },
 
   watch: {
     type() {
@@ -73,25 +78,23 @@ export default {
   methods: {
     getObj() {
       this.$http.get('http://localhost:3000/documents/').then(res => {
-        this.$store.commit(
-          'setObjects',
-          res.body.filter(x => x.type === this.type)
-        )
+        this.objects=res.body.filter(x => x.type === this.type)
       })
     },
     deleteObj(obj) {
-      this.$http
-        .delete('http://localhost:3000/documents/' + obj._id)
-        .then(() => {
+      this.$http.delete('http://localhost:3000/documents/' + obj._id)
+        // .then((res) => {
+          // this.getObj()
           // if(res!=200){
           //     err=>{
           //       err
           //     }
           //   }
           //   else{
-          this.getObj()
+            
+          this.objects=this.objects.filter(x=>x._id!=obj._id)
           // }
-        })
+        // })
     }
   },
   created: function() {

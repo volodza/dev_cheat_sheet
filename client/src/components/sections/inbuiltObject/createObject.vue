@@ -96,7 +96,8 @@ export default {
         date: new Date()
       };
 
-      this.$http.post("http://localhost:3000/documents/", result).then(() => {
+      this.$http.post("http://localhost:3000/documents/", result)
+      .then(() => {
         // if(res!=200){
           // this.$store.commit('setObject', res)
         // }
