@@ -38,7 +38,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '~plugins/vue-resource.js'
+
   ],
   /*
   ** Build configuration

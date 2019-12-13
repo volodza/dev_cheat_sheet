@@ -61,7 +61,8 @@ export default {
       })
     },
     deleteDocument(id){
-      fetch('http://localhost:3000/documents/' + id,{method: 'DELETE'}).then(res => {
+      fetch('http://localhost:3000/documents/' + id,{method: 'DELETE'})
+      .then(res => {
         res.json()
            .then(body => this.documents = body);
       })
