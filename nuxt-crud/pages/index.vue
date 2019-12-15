@@ -1,45 +1,41 @@
 <template>
-  <div class="container">
-    <div>
-      <!-- <logo /> -->
-      <h1 class="title">
-        CHEAT SHEET
-         <logo />
-      </h1>
-
-      <span @click="activate" class="add_btn" >+</span>
-
-      <div v-if="isActive" class="docAdd"></div>
-      
+  <div class="app__inner">
+    <div class="content">
       <div 
-        style="border-radius: 4px;border: 1px solid #3b8070;padding:10px;margin:10px" 
-        v-for="(document,i) in documents" 
-        :key="i" 
-        class="doc"
+        v-for="(document,i) in documents"
+        :key="i"
+        class="document"
       >
-      <div style="display:flex;justify-content: space-between;">
-        <h2  > {{ document.title }} </h2>
-        <span class="close"></span>
-      </div>
-        <!-- <p>{{ document.content }}</p> -->
-      </div>
+        <div class="document__header">
+          <h2>{{ document.title }}</h2>
+        </div>
 
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+        <div class="document__content">
+          <p>{{ document.content }}</p>
+        </div>
+
+        <!-- <div class="document__tags">
+          {{ document.tags}}
+        </div> -->
+
+        <div class="document__footer">
+          <div class="tags"> {{ document.tags}} </div>
+          <div class="instruments">
+            <span style="cursor:pointer" @click="1">Редактировать</span>
+            <span style="cursor:pointer" @click="deleteDocument(document._id)">Удалить</span>
+          </div>
+          
+        </div>
       </div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-block">
+        <li class="menu-item">Menu 1</li>
+        <li class="menu-item">Menu 1</li>
+        <li class="menu-item">Menu 1</li>
+        <li class="menu-item">Menu 1</li>
+      </div>
+      <!-- <span class="add_btn" @click="$router.push('/add')" >+</span> -->
     </div>
   </div>
 </template>
@@ -70,10 +66,11 @@ export default {
     },
     deleteDocument(id){
       fetch('http://localhost:3000/documents/' + id,{method: 'DELETE'})
-      .then(res => {
-        res.json()
-           .then(body => this.documents = body);
-      })
+      this.getDocuments()
+      // .then(res => {
+      //   res.json()
+      //      .then(body => this.documents = body);
+      // })
     }
   },
   created: function() {
@@ -82,90 +79,126 @@ export default {
 }
 </script>
 
-<style>
-.add_btn {
-  border: 2px solid #00c58e;
-    border-radius: 50%;
-    height: 70px;
-    width: 70px;
-    /* display: block; */
-    margin: 0 auto;
-    color: #2f495e;
-    display: flex;
-    justify-content: center;
-    line-height: 1.1;
-    /* text-align: center; */
-    font-size: 50px;
-    transition: all .3s;
-    cursor: pointer;
-}
+<style scoped lang='sass'>
+.app__inner 
+  max-width: 1110px
+  padding-left: 80px
+  padding-right: 10px
+  margin: 0 auto
+  flex: 1
+  min-width: 900px
+  position: relative
+  max-width: 1020px
+  width: 100%
 
-.add_btn:hover{
-  color:white;
-  background-color:#00c58e;
+.content
+  width: 70%
+  float: left
+  // padding-right: 12px
+  margin-top: 15px
+
+.document 
+  overflow: hidden
+  min-height: 75px
+  width: 100%
+  border: 1px solid #393d41
+  border-radius: 2px
+  background-color: #22272b
+  box-sizing: border-box
+  animation-duration: 2000ms
+  animation-fill-mode: forwards
+  margin-bottom: 15px
+
+  &__header
+    padding: 17px 25px 0
+    margin-bottom: 15px
+
+    h2
+      overflow: hidden
+      display: inline-block
+      max-width: 100%
+      font-weight: 400
+      font-size: 20px
+      line-height: 24px
+      cursor: pointer
+      text-overflow: ellipsis
+      white-space: nowrap
+      margin: 0
+      color: #7D7D7D
+
+  &__content
+    padding: 0 25px
+    font-size: 14px
+    color: #BFBFBF
+    white-space: pre-wrap
+
+  &__tags
+    margin: 25px
+    position: relative
+    line-height: 0
+    font-size: 13px
+    color: #7D7D7D
+  
+  &__footer
+    font-size: 13px
+    line-height: 36px
+    overflow: hidden
+    padding: 0 25px
+    border-top: 1px solid #393d41
+    background-color: #1a1e21
+    display: flex
+    justify-content: space-between
+
+    span
+      margin-left: 15px
+
+.sidebar
+  padding-left: 6px
+  width: 29%
+  position: relative
+  float: right
+  margin-right: 0
+
+
+
+.sidebar-block
+    margin-top: 15px
+    font-size: 13px
+    line-height: 20px
+    font-weight: 400
+    border: 1px solid #393d41
+    border-radius: 2px
+    background-color: #22272b
+    padding: 10px 25px
+
+
+.menu-item
+  padding: 0 25px
+  text-decoration: none
+
+
+.add_btn 
+  border: 1px solid #00c58e
+  border-radius: 2px
+  height: 50px
+  width: 100%
+  /* display: block; */
+  margin: 15px auto
+  color: #393d41
+  display: flex
+  justify-content: center
+  line-height: .7
+  /* text-align: center; */
+  font-size: 50px
+  transition: all .3s
+  cursor: pointer
+
+.add_btn:hover
+  color:#393d41
+  background-color:#00c58e
   /* border: 2px solid #2f495e; */
-}
 
-.docAdd{
-  height:100px;
-  border:1px solid black;
-  transition: all 3s;
-}
 
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-
-.close {
-position: relative;
-/* right: 32px;
-top: 32px; */
-width: 26px;
-height: 26px;
-opacity: 0.3;
-}
-.close:hover {
-opacity: 1;
-}
-.close:before, .close:after {
-position: absolute;
-left: 15px;
-content: ' ';
-height: 33px;
-width: 2px;
-background-color: #333;
-}
-.close:before {
-transform: rotate(45deg);
-}
-.close:after {
-transform: rotate(-45deg);
-}
 </style>

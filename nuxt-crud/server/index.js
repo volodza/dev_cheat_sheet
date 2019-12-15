@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const consola = require('consola');
+const BodyParser = require('body-parser');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
@@ -11,6 +12,7 @@ const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 
 app.use(express.urlencoded({ extended: true }));
+app.use(BodyParser.json());
 app.use('/documents',documents);
 
 async function start () {

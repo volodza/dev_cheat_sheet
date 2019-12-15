@@ -21,7 +21,8 @@ documents.post('/', async(req, res) => {
     const document = new Document({
         title: req.body.title,
         content: req.body.content,
-        type: req.body.type
+        tags: req.body.tags,
+        date: Date.now()
     });
     await document.save();
     res.redirect('/documents');
@@ -38,8 +39,7 @@ documents.post('/:id', async(req, res) => {
 
 //удаляем конкретный документ по айди
 documents.delete('/:id', async(req, res) => {
-    const document = await Document.remove({ _id: req.params.id })
-        // todo.completed = !!req.body.completed
+    const document = await Document.findByIdAndDelete(req.params.id)
     await document.save()
     res.redirect('/documents')
 })
