@@ -8,7 +8,7 @@
       >
         <h2 class="document-title">{{ document.title}}</h2>
         <div class="document-content">
-          <p>{{ document.content }}</p>
+          <prism language="javascript">{{ document.content }}</prism>
         </div>
         <div class="document-tags">
           {{ document.tags}}
@@ -33,15 +33,15 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
-
+import Prism from 'vue-prism-component'
 
 export default {
   components: {
-    Logo
+    Prism
   },
   data() {
     return {
-      documents:[],
+      documents:[{content:'let i = 0'}],
       isActive:false
     }
   },
@@ -65,7 +65,7 @@ export default {
     }
   },
   created: function() {
-    this.getDocuments()
+     this.getDocuments()
   }
 }
 </script>

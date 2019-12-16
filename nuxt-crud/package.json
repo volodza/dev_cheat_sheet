@@ -16,11 +16,14 @@
     "express": "^4.16.4",
     "mongoose": "^5.8.1",
     "nuxt": "^2.0.0",
+    "vue-prism-component": "^1.1.1",
     "vue-resource": "^1.5.1"
   },
   "devDependencies": {
     "node-sass": "^4.13.0",
     "nodemon": "^1.18.9",
-    "sass-loader": "^8.0.0"
+    "prismjs": "^1.17.1",
+    "sass-loader": "^8.0.0",
+    "vue-prism": "^1.0.5"
   }
 }

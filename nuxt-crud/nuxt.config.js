@@ -23,11 +23,14 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    { src: 'prismjs/themes/prism.css', lang: 'css' },
+    { src: '~assets/prism-dark.css', lang: 'css' }
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/vue-prism'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -46,6 +49,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+   vendor: ['prismjs'],
     extend (config, ctx) {
     }
   }

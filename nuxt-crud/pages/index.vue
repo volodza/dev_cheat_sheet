@@ -11,7 +11,8 @@
         </div>
 
         <div class="document__content">
-          <p>{{ document.content }}</p>
+          <!-- <p>{{ document.content }}</p> -->
+          <prism language="javascript">{{ document.content }}</prism>
         </div>
 
         <!-- <div class="document__tags">
@@ -29,11 +30,19 @@
       </div>
     </div>
     <div class="sidebar">
-      <div class="sidebar-block">
-        <li class="menu-item">Menu 1</li>
-        <li class="menu-item">Menu 1</li>
-        <li class="menu-item">Menu 1</li>
-        <li class="menu-item">Menu 1</li>
+      <div class="sidebar-filter">
+        <div class="field" style="display:flex;margin-bottom:5px">
+          <span style="width:40%;padding:5px 0;font-size:15px">Раздел:</span>
+          <div style="width:60%;"><pSelect :items="example"></pSelect></div>
+        </div>
+        <div class="field" style="display:flex;margin-bottom:5px">
+          <span style="width:40%;padding:5px 0;font-size:15px">Тема:</span>
+          <div style="width:60%;"><pSelect></pSelect></div>
+        </div>
+        <div class="field" style="display:flex;margin-bottom:5px">
+          <span style="width:40%;padding:5px 0;font-size:15px">Раздел:</span>
+          <div style="width:60%;"><pSelect></pSelect></div>
+        </div>
       </div>
       <span class="add_btn" @click="$router.push('/add')" >+</span>
     </div>
@@ -41,12 +50,14 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
+import pSelect from '~/components/pSelect.vue'
+import 'prismjs/themes/prism.css'
+import Prism from 'vue-prism-component'
 
 export default {
   components: {
-    Logo
+    pSelect,
+    Prism
   },
   data() {
     return {
@@ -75,7 +86,10 @@ export default {
   },
   created: function() {
     this.getDocuments()
-  }
+  },
+//   mounted() {
+//   Prism.highlightAll();
+// }
 }
 </script>
 
@@ -127,10 +141,11 @@ export default {
       color: #7D7D7D
 
   &__content
-    padding: 0 25px
+    // padding: 0 25px
     font-size: 14px
-    color: #24f0ff
+    color: white
     white-space: pre-wrap
+    font-family: 'CamingoCode-Regular', monospace
 
   &__tags
     margin: 25px
@@ -161,7 +176,7 @@ export default {
 
 
 
-.sidebar-block
+.sidebar-filter
     margin-top: 15px
     font-size: 13px
     line-height: 20px
@@ -171,10 +186,6 @@ export default {
     background-color: #22272b
     padding: 10px 25px
 
-
-.menu-item
-  padding: 0 25px
-  text-decoration: none
 
 
 .add_btn 
