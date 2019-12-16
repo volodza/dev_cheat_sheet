@@ -35,7 +35,7 @@
         <li class="menu-item">Menu 1</li>
         <li class="menu-item">Menu 1</li>
       </div>
-      <!-- <span class="add_btn" @click="$router.push('/add')" >+</span> -->
+      <span class="add_btn" @click="$router.push('/add')" >+</span>
     </div>
   </div>
 </template>
@@ -129,7 +129,7 @@ export default {
   &__content
     padding: 0 25px
     font-size: 14px
-    color: #BFBFBF
+    color: #24f0ff
     white-space: pre-wrap
 
   &__tags
